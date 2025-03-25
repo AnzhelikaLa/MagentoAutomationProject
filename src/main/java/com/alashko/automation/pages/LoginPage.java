@@ -27,6 +27,7 @@ public class LoginPage {
     private final By confirmPasswordField = By.id("password-confirmation");
     private final By registerButton = By.cssSelector("button[title='Create an Account']");
     private final By myAccountHeading = By.cssSelector("h1.page-title span"); // Should contain "My Account"
+    private final By emailRequiredError = By.id("email-error");
 
     // Constructor
     public LoginPage(WebDriver driver) {
@@ -67,6 +68,13 @@ public class LoginPage {
 
     public boolean isRegistrationSuccessful() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(myAccountHeading)).getText().contains("My Account");
+    }
+    public boolean isEmailRequiredErrorDisplayed() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(emailRequiredError)).isDisplayed();
+    }
+
+    public String getEmailRequiredErrorText() {
+        return driver.findElement(emailRequiredError).getText().trim();
     }
 }
 
